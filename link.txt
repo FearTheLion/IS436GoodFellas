@@ -1,0 +1,1 @@
+http://django-env.4mhnzqcgeb.us-west-2.elasticbeanstalk.com/launchscreen/
