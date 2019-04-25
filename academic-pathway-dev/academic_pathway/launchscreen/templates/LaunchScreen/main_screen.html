@@ -6,7 +6,7 @@
 
     <meta charset="UTF-8">
     <title>Academic Pathway Optimization</title>
-
+    <link rel="shortcut icon" href="{% static 'LaunchScreen/images/favicon.ico' %}"/>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'LaunchScreen/css/index-style.css' %}" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -14,51 +14,33 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Academic Pathway Optimization  <img src="{% static 'LaunchScreen/images/umbc_logo.jpg' %}" alt=""> </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link ml-auto" href="#">Academic Pathway Optimization Start</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ml-auto" href="#">Help</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ml-auto" href="#">About the Authors</a>
-              </li>
-            </ul>
-        </div>
-    </nav>
+    {% include 'LaunchScreen/header.html' %}
     <div id="overview_section">
         <h2 class = 'header'>List of Data Currently in the System</h2>
 
-        <h3>Current Primary Interests in DB</h3>
-        <ol class = 'overview_data'>
-            {%  for interest in interests_list %}
-                <li class = "list-group-item">
-                    <b>Course Load:</b> {{ interest.course_load }}, <b>Average Starting Salary:</b> {{ interest.avg_starting_salary }}, <b>Primary Interest:</b> {{ interest.interest_1 }}
-                </li>
-            {% endfor %}
-        </ol>
-
-        <h3>Current Secondary Interests in DB</h3>
-        <ol class = 'overview_data'>
-            {%  for interest in secondary_interests_list %}
-                <li class = "list-group-item">
-                    <b>Secondary Interest:</b> {{ interest.interest_2 }}
-                </li>
-            {% endfor %}
-        </ol>
+        <h3>Interests themselves do not need to be stored in the DB</h3>
+            <p>We can store the values for interests within the forms that we create to filter for specific majors and classes. For example, if an individual would fill out the form like so:<br>
+            <b>Starting Salary: </b><i>$80,000+</i><br>
+            <b>Primary Interest: </b><i>Technology</i><br>
+            <b>Secondary Interest 1: </b><i>Critical Thinking</i><br>
+            <b>Secondary Interest 2: </b><i>Hands-on</i><br>
+            <br>
+                This person would receive a recommendation to acquire the <b>Information Systems major</b>. They would also be advised to take on the class <b>IS436</b>, as they filled in 'hands-on' in their interest requirements.
+            We will need to work out a system for determining major 'difficulty', right now in the DB it's a numerical scale, maybe EASY MEDIUM HARD would be better. Maybe we shouldn't even open the can of worms
+            that is comparing difficulty of majors though. I certainly don't want to ruffle any feathers.
+            </p>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#sample_modal" style="margin:15px;">Open Sample Form</button>
 
         <h3>Current Majors in DB</h3>
         <ol class = 'overview_data'>
             {%  for major in major_list %}
                 <li class = "list-group-item">
-                    <b>Major Name:</b> {{ major.major_name }}, <b>Required Credits:</b> {{ major.credits_req }}, <b>Average Starting Salary:</b> {{ major.avg_starting_salary }}, <b>Related Major:</b> {{ major.related_major }} , <b>Interest 1 Selection:</b> {{ major.major_major_interest_tag }}, <b>Interest 2 Selection:</b> {{ major.major_minor_interest_tag }}
+                    <b>Major Name:</b> {{ major.major_name }}<br>
+                    <b>Required Credits:</b> {{ major.credits_req }}<br>
+                    <b>Average Starting Salary:</b> {{ major.avg_starting_salary }}<br>
+                    <b>Related Major:</b> {{ major.related_major }}<br>
+                    <b>Primary Related Interest:</b> {{ major.interest_1 }}<br>
+                    <b>Secondary Related Interest:</b> {{ major.interest_2 }}
                 </li>
             {% endfor %}
         </ol>
@@ -67,11 +49,20 @@
         <ol class = 'overview_data'>
             {%  for class in class_list %}
                 <li class = "list-group-item">
-                    <b>Class Name:</b> {{ class.class_name }}, <b>Abbreviation:</b> {{ class.abbreviation }}, <b>Description</b> {{ class.description }}, <b>Credit Value:</b> {{ class.credits_earned }}, <b>Related Major:</b> {{ class.related_major }}, <b>Interest 1 Selection:</b> {{ class.class_major_interest_tag }}, <b>Interest 2 Selection:</b> {{ class.class_minor_interest_tag }}
+                    <b>Class Name:</b> {{ class.class_name }}<br>
+                    <b>Abbreviation:</b> {{ class.abbreviation }}<br>
+                    <b>Description</b> {{ class.description }}<br>
+                    <b>Credit Value:</b> {{ class.credits_earned }}<br>
+                    <b>Related Major:</b> {{ class.related_major }}<br>
+                    <b>Primary Related Interest:</b> {{ class.interest_1 }}<br>
+                    <b>Secondary Related Interest:</b> {{ class.interest_2 }}
                 </li>
             {% endfor %}
         </ol>
     </div>
+    {% include 'LaunchScreen/form_modal.html' %}
+
+
 
 </body>
 </html>

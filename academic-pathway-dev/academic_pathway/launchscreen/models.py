@@ -38,11 +38,33 @@ class secondaryInterests(models.Model):
 
 
 class Major(models.Model):
-    major_name = models.CharField(max_length=20)
+    major_name = models.CharField(max_length=100)
     credits_req = models.IntegerField()
     related_major = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
-    major_major_interest_tag = models.ForeignKey(primaryInterests, on_delete=models.CASCADE, related_name='major_major_interest_tag', null=True)
-    major_minor_interest_tag = models.ForeignKey(secondaryInterests, on_delete=models.CASCADE, related_name='major_minor_interest_tag', null=True)
+
+    interest_1_choices = (
+        ('Technology', 'tech'),
+        ('Healthcare', 'health'),
+        ('Artistic Expression', 'art'),
+        ('Mathematics', 'math'),
+        ('Science', 'science'),
+    )
+    interest_1 = models.CharField(choices=interest_1_choices, max_length=20, default='art')
+
+    interest_2_choices = (
+        ('Exercise', 'exercise'),
+        ('Travel', 'travel'),
+        ('Hands-on', 'manual'),
+        ('Critical Thinking', 'crit_think'),
+    )
+    interest_2 = models.CharField(choices=interest_2_choices, max_length=20, default='manual')
+
+    avg_starting_salary_choices = (
+        ('30,000 - 50,000', 'low'),
+        ('50,000 - 80,000', 'med'),
+        ('80,000+', 'high')
+    )
+    avg_starting_salary = models.CharField(choices=avg_starting_salary_choices, max_length=20, default='med')
 
     def __str__(self):
         return str(self.major_name)
@@ -55,8 +77,22 @@ class Uni_Class(models.Model):
     abbreviation = models.CharField(max_length=20)
     description = models.TextField()
     credits_earned = models.IntegerField()
-    class_major_interest_tag = models.ForeignKey(primaryInterests, on_delete=models.CASCADE, related_name='class_major_interest_tag', null=True)
-    class_minor_interest_tag = models.ForeignKey(secondaryInterests, on_delete=models.CASCADE, related_name='class_minor_interest_tag', null=True)
+    interest_1_choices = (
+        ('Technology', 'tech'),
+        ('Healthcare', 'health'),
+        ('Artistic Expression', 'art'),
+        ('Mathematics', 'math'),
+        ('Science', 'science'),
+    )
+    interest_1 = models.CharField(choices=interest_1_choices, max_length=20, default='art')
+
+    interest_2_choices = (
+        ('Exercise', 'exercise'),
+        ('Travel', 'travel'),
+        ('Hands-on', 'manual'),
+        ('Critical Thinking', 'crit_think'),
+    )
+    interest_2 = models.CharField(choices=interest_2_choices, max_length=20, default='manual')
 
     def __str__(self):
         return str(self.class_name)

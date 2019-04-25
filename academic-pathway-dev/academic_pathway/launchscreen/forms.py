@@ -3,22 +3,46 @@ from django.contrib import admin
 from .models import *
 
 
+class ExampleInterestForm(forms.Form):
+
+    avg_starting_salary_choices = (
+        ('low', '30,000 - 50,000'),
+        ('med', '50,000 - 80,000'),
+        ('high', '80,000+')
+    )
+
+    primary_interest_choices = (
+        ('tech', 'Technology'),
+        ('health', 'Healthcare'),
+        ('art', 'Artistic Expression'),
+        ('math', 'Mathematics'),
+        ('science', 'Science'),
+    )
+
+    secondary_interest_choices = (
+        ('exercise', 'Exercise'),
+        ('travel', 'Travel'),
+        ('manual', 'Hands-on'),
+        ('crit_think', 'Critical Thinking'),
+    )
+
+    avg_starting_salary = forms.ChoiceField(choices=avg_starting_salary_choices, label='Average Starting Salary')
+    primary_interest = forms.MultipleChoiceField(choices=primary_interest_choices, label='Primary Interests')
+    secondary_interest = forms.MultipleChoiceField(choices=secondary_interest_choices, label='Secondary Interests')
+
+
 class ClassForm(forms.ModelForm):
     class Meta:
         model = Uni_Class
         fields = [
-            'related_major', 'class_name', 'description', 'credits_earned',
-            'class_major_interest_tag', 'class_minor_interest_tag', 'class_minor_interest_tag', 'class_code']
+            'related_major', 'class_name', 'description', 'credits_earned', 'abbreviation',
+            'interest_1', 'interest_2']
         labels = {
             'related_major': 'Related Major', 'class_name': 'Class Name', 'description': 'Class Description',
             'credits_earned': 'Credit Value',
-            'class_major_interest_tag': 'Primary Interests', 'class_minor_interest_tag': 'Secondary Interests',
-            'class_code': 'Class Code'
+            'interest_1': 'Primary Interests', 'interest_2': 'Secondary Interests',
+            'abbreviation': 'Class Code'
         }
-        fields = [
-            'class_name', 'class_code', 'description', 'related_major', 'credits_earned',
-            'class_major_interest_tag', 'class_minor_interest_tag'
-        ]
 
 
 class ClassFormAdmin(admin.ModelAdmin):
