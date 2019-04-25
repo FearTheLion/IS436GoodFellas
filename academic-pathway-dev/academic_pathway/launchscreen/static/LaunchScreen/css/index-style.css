@@ -1,0 +1,17 @@
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: 3px;
+    background-color: #fff;
+    border: 3px solid rgba(0,0,0,.125);
+}
+
+.overview_data {
+    padding-inline-start:0px;
+    padding-bottom: 20px;
+}
+
+.header {
+    padding-bottom: 30px;
+}
