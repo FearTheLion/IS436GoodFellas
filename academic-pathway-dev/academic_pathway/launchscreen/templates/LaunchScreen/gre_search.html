@@ -26,19 +26,16 @@
     {% include 'LaunchScreen/header.html' %}
     <div id="user-input-section">
 
-        <h2>The Academic Pathway Optimization Algorithm</h2>
+        <h2>GRE Search</h2>
         <p>
-            This web page is for UMBC students who are having trouble picking out a major, major classes, or general
-            education requirements. Fill out the form below to get started.
+            Having trouble deciding on your general education requirements? Use this search to narrow your choices.
         </p>
         <form id="initial_input_form">
             <table class = table>
-                {{ sample_form.as_table }}
+                {{ gre_search.as_table }}
             </table>
-            <input type="submit" value="Find Majors" />
+            <input type="submit" value="Find GRE Classes" />
         </form>
-        <h3>Current Majors in DB</h3>
-            {% include 'LaunchScreen/major_list.html' %}
     </div>
 
     <div id="output-section">

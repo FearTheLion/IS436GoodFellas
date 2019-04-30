@@ -1,0 +1,18 @@
+<ol class = 'overview_data'>
+    {% for class in class_list %}
+        <li class = "list-group-item">
+            <b>Course Title:</b> {{ class.course_name }}<br>
+            <b>Abbreviation:</b> {{ class.abbreviation }}<br>
+            <b>Description</b> {{ class.description }}<br>
+            <b>Credit Value:</b> {{ class.credits_earned }}<br>
+            <b>Interest(s):</b><br>
+            {% for interest in class.related_primary_interest.all %}
+                {% if interest.checker is True %}
+                    <b>-{{ interest }}</b><br/>
+                {% else %}
+                    -{{ interest }}<br/>
+                {% endif %}
+            {% endfor %}
+        </li>
+    {% endfor %}
+</ol>

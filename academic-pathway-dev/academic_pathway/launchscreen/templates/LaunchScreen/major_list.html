@@ -1,0 +1,19 @@
+<ol class = 'overview_data'>
+{%  for major in major_list %}
+    <li class = "list-group-item">
+        <b>Major Name:</b> {{ major.major_name }}<br>
+        <b>Required Credits:</b> {{ major.credits_req }}<br>
+        <b>Average Starting Salary:</b> {{ major.avg_starting_salary }}<br>
+        <b>Related Major:</b> {{ major.related_major }}<br>
+        <b>Interest(s):</b><br>
+        {% for interest in major.related_primary_interest.all %}
+            {% if interest.checker is True %}
+                <b>-{{ interest }}</b><br/>
+            {% else %}
+                -{{ interest }}<br/>
+            {% endif %}
+        {% endfor %}
+        <a class="btn" href="/major_detail/{{ major.id }}">More Information</a>
+    </li>
+{% endfor %}
+</ol>

@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <title>Academic Pathway Optimization</title>
     <link rel="shortcut icon" href="{% static 'LaunchScreen/images/favicon.ico' %}"/>
@@ -18,34 +17,32 @@
             integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous">
     </script>
     <script type ="text/javascript" src="{% static 'LaunchScreen/js/formsubmit.js' %}"></script>
-
-
-
 </head>
 <body>
     {% include 'LaunchScreen/header.html' %}
-    <div id="user-input-section">
-
-        <h2>The Academic Pathway Optimization Algorithm</h2>
-        <p>
-            This web page is for UMBC students who are having trouble picking out a major, major classes, or general
-            education requirements. Fill out the form below to get started.
-        </p>
-        <form id="initial_input_form">
-            <table class = table>
-                {{ sample_form.as_table }}
-            </table>
-            <input type="submit" value="Find Majors" />
-        </form>
-        <h3>Current Majors in DB</h3>
-            {% include 'LaunchScreen/major_list.html' %}
+    <div id="major-detail-section">
+        <h2>{{ major.major_name }}</h2>
+            <p>
+                This is a list of all of the classes needed to earn an {{ major.major_name }} major at UMBC.
+            </p>
+        <ol class = 'overview_data'>
+            {% for class in class_list %}
+                <li class = "list-group-item">
+                    <b>Course Title:</b> {{ class.course_name }}<br>
+                    <b>Abbreviation:</b> {{ class.abbreviation }}<br>
+                    <b>Description</b> {{ class.description }}<br>
+                    <b>Credit Value:</b> {{ class.credits_earned }}<br>
+                    <b>Interest(s):</b><br>
+                    {% for interest in class.related_primary_interest.all %}
+                        {% if interest.checker is True %}
+                            <b>-{{ interest }}</b><br/>
+                        {% else %}
+                            -{{ interest }}<br/>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ol>
     </div>
-
-    <div id="output-section">
-        <i>No interests selected...</i>
-    </div>
-
-
-
 </body>
 </html>
