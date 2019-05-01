@@ -20,6 +20,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.initial_view, name='initial_view'),
-
+    url(r'submit_initial_input/$', views.submit_initial_input, name='submit_initial_input'),
+    url(r'gre_search/$', views.gre_search, name='gre_search'),
+    url(r'major_detail/(?P<m_id>[0-9]+)$', views.major_detail, name='major_detail'),
 
 ]

@@ -17,6 +17,19 @@
     padding-bottom: 30px;
 }
 
-#overview_section {
-    padding:15px;
+#user-input-section {
+    padding: 2%;
+    float: left;
+    width: 48%;
+
+}
+
+#output-section {
+    padding: 2%;
+    float: left;
+    width: 48%;
+}
+
+#major-detail-section {
+    padding: 2%;
 }
