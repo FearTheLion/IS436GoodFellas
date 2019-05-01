@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Academic Pathway Optimization</title>
+    <link rel="shortcut icon" href="{% static 'LaunchScreen/images/favicon.ico' %}"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/dashboard.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'LaunchScreen/css/index-style.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+            integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous">
+    </script>
+    <script type ="text/javascript" src="{% static 'LaunchScreen/js/formsubmit.js' %}"></script>
+</head>
+<body>
+    {% include 'LaunchScreen/header.html' %}
+    <div id="major-detail-section">
+        <h2>{{ major.major_name }}</h2>
+            <p>
+                This is a list of all of the classes needed to earn an {{ major.major_name }} major at UMBC.
+            </p>
+        <ol class = 'overview_data'>
+            {% for class in class_list %}
+                <li class = "list-group-item">
+                    <b>Course Title:</b> {{ class.course_name }}<br>
+                    <b>Abbreviation:</b> {{ class.abbreviation }}<br>
+                    <b>Description</b> {{ class.description }}<br>
+                    <b>Credit Value:</b> {{ class.credits_earned }}<br>
+                    <b>Interest(s):</b><br>
+                    {% for interest in class.related_primary_interest.all %}
+                        {% if interest.checker is True %}
+                            <b>-{{ interest }}</b><br/>
+                        {% else %}
+                            -{{ interest }}<br/>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</body>
+</html>
