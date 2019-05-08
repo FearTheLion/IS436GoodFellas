@@ -24,14 +24,13 @@
 </head>
 <body>
     {% include 'LaunchScreen/header.html' %}
-    <div id="user-input-section">
+    <div id="user-input-section-gre">
 
         <h2>GRE Search</h2>
         <p>
             Having trouble deciding on your general education requirements? Use this search to narrow your choices.
         </p>
-        <form id="initial_input_form">
-            {% csrf_token %}
+        <form id="gre_search_form">
             <table class = table>
                 {{ gre_search.as_table }}
             </table>
@@ -39,10 +38,9 @@
         </form>
     </div>
 
-    <div id="output-section">
+    <div id="output-section-gre">
         <i>No interests selected...</i>
     </div>
-
 
 
 </body>

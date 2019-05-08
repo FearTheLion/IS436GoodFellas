@@ -20,14 +20,27 @@
 #user-input-section {
     padding: 2%;
     float: left;
-    width: 48%;
+    width: 58%;
 
 }
 
 #output-section {
     padding: 2%;
     float: left;
-    width: 48%;
+    width: 38%;
+}
+
+#user-input-section-gre{
+    padding: 2%;
+    float: left;
+    width: 38%;
+
+}
+
+#output-section-gre {
+    padding: 2%;
+    float: left;
+    width: 58%;
 }
 
 #major-detail-section {

@@ -59,7 +59,7 @@ def submit_initial_input(request):
 
 
 def major_detail(request, m_id):
-    class_list = Course.objects.filter(related_major=Major.objects.get(pk=m_id))
+    class_list = Course.objects.filter(related_major=Major.objects.get(pk=m_id)).order_by('abbreviation')
     major = Major.objects.get(pk=m_id)
     context = {'class_list': class_list, 'major': major}
     return render(request, 'LaunchScreen/major_detail.html', context)
@@ -70,6 +70,36 @@ def gre_search(request):
     return render(request, 'LaunchScreen/gre_search.html', context={'gre_search': gre_search_form})
 
 
+def submit_gre_form(request):
+    if request.method == 'POST':
+        primary_interests = json.loads(request.POST.get('primary_interests'))
+        search_primary_interests = []
+        reset = PrimaryInterest.objects.all()
+        for interest in reset:
+            interest.checker = False
+            interest.save()
+        for key in primary_interests:
+            value = PrimaryInterest.objects.get(pk=key['value'])
+            value.checker = True
+            search_primary_interests.append(value)
+            value.save()
+        returned_classes_init = Course.objects.filter(gre_class=True)
+        to_be_deleted = []
+        for course in returned_classes_init:
+            flag = True
+            for p_i in search_primary_interests:
+                for interest in course.related_primary_interest.all():
+                    if interest.name == p_i.name:
+                        flag = False
+            if flag:
+                to_be_deleted.append(course.id)
+        returned_classes = returned_classes_init.exclude(id__in=to_be_deleted)
+        returned_classes.order_by('tag_weight')
+        context = {'msg': 'Success',
+                   'out': render_to_string('LaunchScreen/class_list.html', {'class_list': returned_classes},
+                                           request)}
+        return render_to_json(request, context)
+    return Http404()
 # helper methods
 def render_to_json(request, data):
     return HttpResponse(

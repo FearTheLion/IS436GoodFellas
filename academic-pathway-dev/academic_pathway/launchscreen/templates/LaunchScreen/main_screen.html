@@ -33,13 +33,10 @@
         </p>
         <form id="initial_input_form">
             <table class = table>
-                {% csrf_token %}
                 {{ sample_form.as_table }}
             </table>
             <input type="submit" value="Find Majors" />
         </form>
-        <h3>Current Majors in DB</h3>
-            {% include 'LaunchScreen/major_list.html' %}
     </div>
 
     <div id="output-section">

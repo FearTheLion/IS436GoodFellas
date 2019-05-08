@@ -11,13 +11,13 @@ class PrimaryInterest(models.Model):
 
 class Major(models.Model):
     major_name = models.CharField(max_length=100)
-    credits_req = models.IntegerField()
     avg_starting_salary_choices = (
         ('30,000 - 50,000', 'low'),
         ('50,000 - 80,000', 'med'),
         ('80,000+', 'high')
     )
     avg_starting_salary = models.CharField(choices=avg_starting_salary_choices, max_length=20, default='med')
+    credits_req = models.IntegerField(default=34)
     related_major = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     related_primary_interest = models.ManyToManyField('PrimaryInterest')
     tag_weight = models.IntegerField(default=0)
@@ -31,7 +31,8 @@ class Course(models.Model):
     abbreviation = models.CharField(max_length=20)
     description = models.TextField()
     credits_earned = models.IntegerField()
-    related_major = models.ForeignKey(Major, on_delete=models.CASCADE)
+    gre_class = models.BooleanField()
+    related_major = models.ForeignKey(Major, on_delete=models.CASCADE, blank=True, null=True)
     related_primary_interest = models.ManyToManyField('PrimaryInterest')
 
     def __str__(self):
