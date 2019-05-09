@@ -5,6 +5,8 @@ import json
 from .forms import *
 from .models import *
 from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 def initial_view(request):
@@ -17,6 +19,7 @@ def initial_view(request):
     return render(request, 'LaunchScreen/main_screen.html', context)
 
 
+@csrf_exempt
 def submit_initial_input(request):
     if request.method == 'POST':
         avg_salary = request.POST.get('avg_salary')
@@ -58,6 +61,7 @@ def submit_initial_input(request):
     return Http404()
 
 
+@csrf_exempt
 def major_detail(request, m_id):
     class_list = Course.objects.filter(related_major=Major.objects.get(pk=m_id)).order_by('abbreviation')
     major = Major.objects.get(pk=m_id)
@@ -70,6 +74,7 @@ def gre_search(request):
     return render(request, 'LaunchScreen/gre_search.html', context={'gre_search': gre_search_form})
 
 
+@csrf_exempt
 def submit_gre_form(request):
     if request.method == 'POST':
         primary_interests = json.loads(request.POST.get('primary_interests'))
